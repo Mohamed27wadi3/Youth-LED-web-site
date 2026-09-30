@@ -1,0 +1,10 @@
+{
+  "description": "Empowering Algerian youth aged 18-35 through skill-building, leadership training, and networking opportunities to foster impactful community initiatives.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
