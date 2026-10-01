@@ -1,4 +1,4 @@
-# figma-make-app
+# Youth LED Algeria
 
 React + Vite + Tailwind CSS project running inside Figma Make.
 
