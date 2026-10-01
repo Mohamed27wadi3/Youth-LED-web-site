@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AppProvider, useApp } from './lib'
 import { Cursor, Footer, Loader, Nav } from './chrome'
+import { LOGO } from './data'
 import {
   AlgeriaMap, Goals, Governance, Green, Hero, HowWeWork, ImpactNumbers, International, Join, MVW, Partners,
   PartnerCTA, Pillars, Pipeline, ProjectsShowcase, Stories, Strip, Who,
@@ -74,6 +75,17 @@ function Shell() {
 }
 
 export default function App() {
+  useEffect(() => {
+    let icon = document.querySelector<HTMLLinkElement>('link[rel="icon"]')
+    if (!icon) {
+      icon = document.createElement('link')
+      icon.rel = 'icon'
+      document.head.appendChild(icon)
+    }
+    icon.type = 'image/png'
+    icon.href = LOGO
+  }, [])
+
   return (
     <AppProvider>
       <Shell />
