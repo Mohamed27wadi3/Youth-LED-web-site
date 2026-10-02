@@ -37,6 +37,7 @@ react(),
       watch: {
         ignored: [
           '**/.figma/**',
+          '**/image de site/**',
 ],
       },
     },
