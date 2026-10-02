@@ -38,6 +38,7 @@ react(),
         ignored: [
           '**/.figma/**',
           '**/image de site/**',
+          '**/src/assets/events/**',
 ],
       },
     },

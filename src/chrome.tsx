@@ -87,9 +87,9 @@ export function Nav() {
             : 'h-[84px] border-b border-transparent bg-transparent'
         } ${onDark ? 'on-navy' : ''}`}
       >
-        <div className="wrap flex h-full items-center justify-between gap-6">
+        <div className="wrap flex h-full items-center justify-between gap-4 xl:gap-6">
           <Logo onDark={onDark} />
-          <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0 xl:flex" aria-label="Main">
             {NAV.map((n) => {
               const active = route.page === n.path.slice(1)
               return (
@@ -97,7 +97,7 @@ export function Nav() {
                   key={n.path}
                   to={n.path}
                   aria-current={active ? 'page' : undefined}
-                  className={`relative px-3 py-3 text-[14.5px] font-medium transition-colors duration-200 ${
+                    className={`relative shrink-0 whitespace-nowrap px-2.5 py-3 text-[14px] font-medium transition-colors duration-200 2xl:px-3 2xl:text-[14.5px] ${
                     onDark ? 'text-white/85 hover:text-white' : 'text-tx hover:text-brand'
                   }`}
                 >
@@ -117,7 +117,7 @@ export function Nav() {
               <LangSwitch onDark={onDark} />
             </div>
             <ThemeToggle onDark={onDark} />
-            <Btn to="/partner" className="ms-2 hidden !min-h-[46px] !px-5 xl:inline-flex">
+            <Btn to="/partner" className="ms-2 hidden shrink-0 whitespace-nowrap !min-h-[46px] !px-4 xl:inline-flex 2xl:!px-5">
               {t('Partner With Us', 'كن شريكنا')}
             </Btn>
             <button

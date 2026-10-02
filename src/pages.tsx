@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useState, type FormEvent, type ReactNode } from 'react'
 import { ChevronRight, Check, Mail, Phone, Plane, GraduationCap, Handshake, Megaphone, Users, Globe2 } from 'lucide-react'
 import { Instagram, Arrow, Btn, Eyebrow, Img, Link, MaskLines, Reveal, useApp } from './lib'
 import {
@@ -149,7 +149,7 @@ export function WhatWeDo() {
                 <p className="t-body mt-4 text-tx2">{t(p.desc.en, p.desc.ar)}</p>
                 <ul className="mt-6 flex flex-wrap gap-2">{p.tags.map((g, k) => <li key={k} className="rounded-full border border-bd px-4 py-2 text-[13px] font-medium text-ink">{t(g.en, g.ar)}</li>)}</ul>
               </div>
-              <Reveal kind={i % 2 ? 'clip-s' : 'clip-b'} className="overflow-hidden rounded-[20px] bg-tint"><div className="aspect-[4/3]"><Img src={p.img} alt={`${p.word.en} (placeholder image)`} /></div></Reveal>
+              <Reveal kind={i % 2 ? 'clip-s' : 'clip-b'} className="overflow-hidden rounded-[20px] bg-tint"><div className="aspect-[4/3]"><Img src={p.img} alt={`${p.word.en} — Youth LED activity`} style={{ objectPosition: p.crop }} /></div></Reveal>
             </div>
           </div>
         ))}
@@ -380,9 +380,36 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 const inputCls = 'min-h-[52px] w-full rounded-xl border border-bd bg-surface px-4 text-base text-tx placeholder:text-tx2/70 transition-colors focus:border-brand disabled:opacity-50'
 
 function ContactForm({ topics }: { topics: string[] }) {
-  const { t } = useApp()
-  const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
+  const { lang, t } = useApp()
+  const [state, setState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
   const [topic, setTopic] = useState(topics[0])
+  const [values, setValues] = useState({ name: '', organisation: '', country: '', email: '', message: '' })
+  const [error, setError] = useState('')
+
+  const update = (key: keyof typeof values, value: string) => setValues((current) => ({ ...current, [key]: value }))
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setError('')
+    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT || '/api/contact'
+    if (!endpoint) {
+      setError(t('Contact delivery is not configured yet. Please email us directly while the Google Sheets endpoint is being connected.', 'لم يتم إعداد إرسال الرسائل بعد. يرجى مراسلتنا عبر البريد مباشرة إلى حين ربط Google Sheets.'))
+      setState('error')
+      return
+    }
+    setState('loading')
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, topic, language: lang, submittedAt: new Date().toISOString() }),
+      })
+      if (!response.ok) throw new Error(`Contact request failed with ${response.status}`)
+      setState('done')
+    } catch {
+      setError(t('We could not confirm delivery. Your entries are still here; please try again.', 'تعذر تأكيد الإرسال. بياناتك ما زالت محفوظة هنا، يرجى المحاولة مجدداً.'))
+      setState('error')
+    }
+  }
   return state === 'done' ? (
     <div className="rounded-2xl border border-bd bg-surface p-8" role="status">
       <span className="grid h-12 w-12 place-items-center rounded-full bg-accent text-[#0b2c66]"><Check /></span>
@@ -390,16 +417,17 @@ function ContactForm({ topics }: { topics: string[] }) {
       <p className="t-body mt-2 text-tx2">{t('Your message is ready. For now, please also write to us at', 'رسالتك جاهزة. في الوقت الحالي، يرجى مراسلتنا أيضاً على')} {CONTACT.email}.</p>
     </div>
   ) : (
-    <form onSubmit={(e) => { e.preventDefault(); setState('loading'); setTimeout(() => setState('done'), 900) }} className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={submit} className="grid gap-5 sm:grid-cols-2">
       <div className="sm:col-span-2">
         <span className="mb-3 block text-sm font-semibold text-ink">{t('Topic', 'الموضوع')}</span>
         <Chips value={topic} onChange={setTopic} items={topics.map((x) => ({ k: x, label: x }))} />
       </div>
-      <Field label={t('Name', 'الاسم')}><input required className={inputCls} autoComplete="name" /></Field>
-      <Field label={t('Organisation', 'المؤسسة')}><input className={inputCls} autoComplete="organization" /></Field>
-      <Field label={t('Country', 'البلد')}><input className={inputCls} autoComplete="country-name" /></Field>
-      <Field label={t('Email', 'البريد الإلكتروني')}><input required type="email" className={inputCls} autoComplete="email" dir="ltr" /></Field>
-      <div className="sm:col-span-2"><Field label={t('Message', 'الرسالة')}><textarea required rows={5} className={`${inputCls} py-3`} /></Field></div>
+      <Field label={t('Name', 'الاسم')}><input required value={values.name} onChange={(e) => update('name', e.target.value)} className={inputCls} autoComplete="name" /></Field>
+      <Field label={t('Organisation', 'المؤسسة')}><input value={values.organisation} onChange={(e) => update('organisation', e.target.value)} className={inputCls} autoComplete="organization" /></Field>
+      <Field label={t('Country', 'البلد')}><input value={values.country} onChange={(e) => update('country', e.target.value)} className={inputCls} autoComplete="country-name" /></Field>
+      <Field label={t('Email', 'البريد الإلكتروني')}><input required type="email" value={values.email} onChange={(e) => update('email', e.target.value)} className={inputCls} autoComplete="email" dir="ltr" /></Field>
+      <div className="sm:col-span-2"><Field label={t('Message', 'الرسالة')}><textarea required rows={5} value={values.message} onChange={(e) => update('message', e.target.value)} className={`${inputCls} py-3`} /></Field></div>
+      {error && <p className="sm:col-span-2 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm leading-relaxed text-red-800" role="alert">{error} {state === 'error' && <span>{CONTACT.email}</span>}</p>}
       <div className="sm:col-span-2"><Btn type="submit" loading={state === 'loading'}>{t('Send Message', 'إرسال الرسالة')}</Btn></div>
     </form>
   )

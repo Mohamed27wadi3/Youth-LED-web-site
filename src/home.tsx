@@ -6,7 +6,7 @@ import {
   Arrow, Btn, CountUp, Eyebrow, Img, Link, MaskLines, Reveal, reducedMotion, useApp, useScrollProgress,
 } from './lib'
 import {
-  BOARD, CAPS, DEPARTMENTS, GOALS, IMG, INTL, OPPS, PILLARS, PROJECTS, STAGES, STATS, STORIES, WORKS,
+  BOARD, CAPS, DEPARTMENTS, EVENTS, FIELD_STORIES, GOALS, IMG, INTL, OPPS, PILLARS, PROJECTS, STAGES, STATS, WORKS, type EventRecord,
 } from './data'
 
 /* ───────────────────────── HERO ───────────────────────── */
@@ -45,7 +45,7 @@ export function Hero() {
           <span>{t('YOUTH LED ALGERIA', 'شباب ليد الجزائر')}</span>
           <span className="text-white/60">{t('EST. 2018 • ALGERIA', 'تأسست 2018 • الجزائر')}</span>
         </p>
-        <h1 className="t-hero max-w-[16ch]" style={{ transform: 'translate3d(0,calc(var(--p) * -3.5%),0)' }}>
+        <h1 className="t-hero max-w-[16ch] text-[clamp(2rem,10vw,7.5rem)]" style={{ transform: 'translate3d(0,calc(var(--p) * -3.5%),0)' }}>
           <span className="ml a-line" style={d(260)}>
             <span>{t('FROM SKILLS', 'من المهارات')}</span>
           </span>
@@ -255,11 +255,11 @@ export function Pillars() {
                   </li>
                 ))}
               </ul>
-              <div className="relative mt-10 h-[9.5rem] max-w-md">
+              <div className="relative mt-10 min-h-[12rem] max-w-md">
                 {PILLARS.map((pl, i) => (
                   <div key={pl.key} className="absolute inset-0 transition-[opacity,transform] duration-[700ms] ease-[var(--ease)]" style={{ opacity: i === idx ? 1 : 0, transform: `translateY(${i === idx ? 0 : 20}px)` }} aria-hidden={i !== idx}>
-                    <p className="t-h4 text-brand">{t(pl.line.en, pl.line.ar)}</p>
-                    <p className="t-body mt-3 text-tx2">{t(pl.desc.en, pl.desc.ar)}</p>
+                    <p className="t-h4 leading-relaxed text-brand">{t(pl.line.en, pl.line.ar)}</p>
+                    <p className="t-body mt-4 leading-relaxed text-tx2">{t(pl.desc.en, pl.desc.ar)}</p>
                   </div>
                 ))}
               </div>
@@ -274,7 +274,7 @@ export function Pillars() {
             <div className="relative aspect-[4/5] max-h-[72vh] w-full overflow-hidden rounded-[20px] bg-tint" data-cursor="EXPLORE">
               {PILLARS.map((pl, i) => (
                 <div key={pl.key} className="absolute inset-0 transition-[opacity,transform] duration-[700ms] ease-[var(--ease)]" style={{ opacity: i === idx ? 1 : 0, transform: `scale(${i === idx ? 1 : 1.06})` }}>
-                  <Img src={pl.img} alt={`${pl.word.en} — documentary workshop image (placeholder)`} />
+                  <Img src={pl.img} alt={`${pl.word.en} — Youth LED activity`} style={{ objectPosition: pl.crop }} />
                   <div className="absolute inset-0 bg-[#0b2c66]/10" />
                 </div>
               ))}
@@ -292,7 +292,7 @@ export function Pillars() {
           <Reveal key={pl.key}>
             <p className="t-num text-xs text-tx2" dir="ltr">0{i + 1}</p>
             <p className="t-num mt-2 text-[clamp(3rem,15vw,6rem)] text-ink">{t(pl.word.en, pl.word.ar)}<span className="text-accent">.</span></p>
-            <div className="mt-5 aspect-[4/3] overflow-hidden rounded-[18px] bg-tint"><Img src={pl.img} alt={`${pl.word.en} — documentary workshop image (placeholder)`} /></div>
+            <div className="mt-5 aspect-[4/3] overflow-hidden rounded-[18px] bg-tint"><Img src={pl.img} alt={`${pl.word.en} — Youth LED activity`} style={{ objectPosition: pl.crop }} /></div>
             <p className="t-h4 mt-6 text-brand">{t(pl.line.en, pl.line.ar)}</p>
             <p className="t-body mt-3 text-tx2">{t(pl.desc.en, pl.desc.ar)}</p>
           </Reveal>
@@ -512,37 +512,41 @@ export function Green() {
 /* ───────────────────────── PROJECTS ───────────────────────── */
 export function ProjectsShowcase() {
   const { t } = useApp()
-  const [f, ...rest] = PROJECTS
-  const med = rest.slice(0, 2)
-  const more = rest.slice(2)
   return (
     <section className="sec bg-bg">
       <div className="wrap">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Reveal><Eyebrow>{t('SELECTED ACTIVITIES', 'أنشطة مختارة')}</Eyebrow></Reveal>
-            <h2 className="t-h2 mt-6 text-ink"><MaskLines lines={[t('Real events.', 'فعاليات حقيقية.'), t('Real skills.', 'مهارات حقيقية.')]} /></h2>
-          </div>
-          <Link to="/projects" className="tlink text-brand">{t('All projects', 'كل المشاريع')} <Arrow /></Link>
+        <Reveal><Eyebrow>{t('SELECTED ACTIVITIES', 'أنشطة مختارة')}</Eyebrow></Reveal>
+        <h2 className="t-h2 mt-6 max-w-[16ch] text-ink"><MaskLines lines={[t('REAL EVENTS,', 'فعاليات حقيقية،'), t('REAL SKILLS.', 'مهارات حقيقية.')]} /></h2>
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {EVENTS.map((event, i) => <EventCard key={event.id} event={event} delay={i * 60} />)}
         </div>
-        <div className="mt-14 grid gap-6 lg:grid-cols-12">
-          <ProjectCard p={f} big className="lg:col-span-7 lg:row-span-2" />
-          {med.map((p, i) => <ProjectCard key={p.id} p={p} delay={(i + 1) * 100} className="lg:col-span-5" />)}
-        </div>
-        <ul className="mt-14 border-t border-bd">
-          {more.map((p) => (
-            <li key={p.id}>
-              <Link to={`/projects/${p.id}`} data-cursor="VIEW" className="group grid grid-cols-[1fr_auto] items-center gap-4 border-b border-bd py-6 transition-colors sm:grid-cols-[14rem_1fr_auto_auto] sm:gap-8">
-                <span className="eyebrow hidden text-tx2 sm:block">{t(p.cat.en, p.cat.ar)}</span>
-                <span className="t-h4 text-ink transition-colors group-hover:text-brand">{t(p.title.en, p.title.ar)}</span>
-                <span className="hidden h-14 w-24 overflow-hidden rounded-lg bg-tint sm:block"><Img src={p.img} alt="" /></span>
-                <span className="grid h-11 w-11 place-items-center rounded-full border border-bd text-ink transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-[#0b2c66]"><Arrow /></span>
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
+  )
+}
+
+export function EventCard({ event, delay = 0 }: { event: EventRecord; delay?: number }) {
+  const { t } = useApp()
+  const detail = event.href ? (
+    <a href={event.href} className="tlink mt-5 self-start text-brand">{t('View details', 'عرض التفاصيل')} <Arrow /></a>
+  ) : null
+  return (
+    <Reveal delay={delay} className="h-full">
+      <article className="card flex h-full flex-col overflow-hidden">
+        <div className="aspect-[4/3] overflow-hidden bg-tint">
+          <Img src={event.image} alt={event.title ? t(event.title.en, event.title.ar) : t('Youth LED activity photo', 'صورة من نشاط لشباب ليد')} />
+        </div>
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
+          {event.title ? <h3 className="t-h4 break-words text-ink">{t(event.title.en, event.title.ar)}</h3> : <p className="text-sm font-semibold text-tx2">{t('Event details to be added', 'ستُضاف تفاصيل النشاط')}</p>}
+          {event.date && <p className="mt-3 text-sm text-tx2">{t(event.date.en, event.date.ar)}</p>}
+          {event.location && <p className="mt-1 text-sm text-tx2">{t(event.location.en, event.location.ar)}</p>}
+          {event.summary && <p className="t-body mt-4 text-[15px] text-tx2">{t(event.summary.en, event.summary.ar)}</p>}
+          {event.topics && <ul className="mt-4 flex flex-wrap gap-2">{event.topics.map((topic) => <li key={topic.en} className="rounded-full border border-bd px-3 py-1.5 text-xs text-ink">{t(topic.en, topic.ar)}</li>)}</ul>}
+          {event.partner && <p className="mt-4 text-xs text-tx2">{t('Partner:', 'الشريك:')} {t(event.partner.en, event.partner.ar)}</p>}
+          {detail}
+        </div>
+      </article>
+    </Reveal>
   )
 }
 
@@ -667,7 +671,14 @@ const OUTLINE: [number, number][] = [
   [11.560669, 24.097909], [11.999506, 23.471668],
 ]
 const proj = ([lo, la]: [number, number]) => [(lo + 9) * 34, (37.5 - la) * 34] as const
-const NODES: [number, number][] = [[-0.6, 35.6], [3.0, 36.4], [6.2, 36.2], [2.8, 34.0], [7.0, 34.6], [5.0, 31.0], [-0.5, 32.0]]
+const NODES: { coordinates: [number, number]; label: { en: string; ar: string } }[] = [
+  { coordinates: [3.0588, 36.7538], label: { en: 'Algiers', ar: 'الجزائر العاصمة' } },
+  { coordinates: [-0.6337, 35.6971], label: { en: 'Oran', ar: 'وهران' } },
+  { coordinates: [2.44, 36.59], label: { en: 'Tipaza', ar: 'تيبازة' } },
+  { coordinates: [-0.3, 33.27], label: { en: 'Naama', ar: 'النعامة' } },
+  { coordinates: [6.2646, 36.45], label: { en: 'Mila', ar: 'ميلة' } },
+  { coordinates: [5.7667, 36.82], label: { en: 'Jijel', ar: 'جيجل' } },
+]
 
 export function AlgeriaMap() {
   const { t } = useApp()
@@ -686,9 +697,9 @@ export function AlgeriaMap() {
           <svg viewBox="-20 -20 760 660" className="mx-auto w-full max-w-[640px]" role="img" aria-label={t('Stylised outline of Algeria', 'خريطة مبسّطة للجزائر')}>
             <path d={path} fill="var(--bg2)" stroke="var(--brand)" strokeWidth="1.6" strokeLinejoin="round" />
             {NODES.map((n, i) => {
-              const [x, y] = proj(n)
+              const [x, y] = proj(n.coordinates)
               return (
-                <g key={i} onMouseEnter={() => setH(i)} onMouseLeave={() => setH(null)} onFocus={() => setH(i)} onBlur={() => setH(null)} tabIndex={0} role="button" aria-label={t('Wilaya — to be confirmed', 'ولاية — في انتظار التأكيد')} className="cursor-pointer outline-none">
+                <g key={n.label.en} onMouseEnter={() => setH(i)} onMouseLeave={() => setH(null)} onFocus={() => setH(i)} onBlur={() => setH(null)} onClick={() => setH(i)} tabIndex={0} role="button" aria-label={t(n.label.en, n.label.ar)} className="cursor-pointer outline-none">
                   <circle cx={x} cy={y} r="9" fill="var(--accent)" opacity="0.5" style={{ transformOrigin: `${x}px ${y}px`, animation: reducedMotion() ? undefined : `pulse 2.4s ${i * 0.3}s ease-out infinite` }} />
                   <circle cx={x} cy={y} r={h === i ? 9 : 6} fill="var(--accent)" stroke="#0b2c66" strokeWidth="2" style={{ transition: 'r .25s' }} />
                 </g>
@@ -696,11 +707,16 @@ export function AlgeriaMap() {
             })}
           </svg>
           <div className={`pointer-events-none absolute start-2 top-2 max-w-[15rem] rounded-xl border border-bd bg-surface p-4 text-sm shadow-[0_10px_30px_rgba(11,44,102,0.12)] transition-opacity duration-200 ${h === null ? 'opacity-0' : 'opacity-100'}`}>
-            <p className="eyebrow text-brand">{t('Wilaya', 'الولاية')}</p>
-            <p className="mt-1 font-semibold text-ink">{t('To be confirmed', 'في انتظار التأكيد')}</p>
-            <p className="mt-1 text-tx2">{t('Activities and programmes will appear here.', 'ستظهر هنا الأنشطة والبرامج.')}</p>
+            <p className="eyebrow text-brand">{t('Youth LED reach', 'انتشار شباب ليد')}</p>
+            <p className="mt-1 font-semibold text-ink">{h === null ? '' : t(NODES[h].label.en, NODES[h].label.ar)}</p>
+            <p className="mt-1 text-tx2">{t('Point placed using the city coordinates listed below.', 'وُضعت النقطة اعتمادًا على إحداثيات المدينة المذكورة.')}</p>
           </div>
-          <p className="mt-2 text-center text-xs text-tx2">{t('Node positions are illustrative placeholders, not verified locations.', 'مواضع النقاط توضيحية مؤقتة وليست مواقع موثّقة.')}</p>
+          <p className="mt-2 text-center text-xs text-tx2">
+            {t('Coordinates: GeoNames city references. Border: GeoJSON country geometry.', 'الإحداثيات: مراجع المدن من GeoNames. الحدود: هندسة GeoJSON للدولة.')}{' '}
+            <a href="https://www.geonames.org/" target="_blank" rel="noreferrer" className="underline hover:text-brand">GeoNames</a>
+            {' · '}
+            <a href="https://github.com/johan/world.geo.json/blob/master/countries/DZA.geo.json" target="_blank" rel="noreferrer" className="underline hover:text-brand">GeoJSON DZA</a>
+          </p>
         </Reveal>
       </div>
     </section>
@@ -775,7 +791,7 @@ export function Partners() {
 /* ───────────────────────── STORIES ───────────────────────── */
 export function Stories({ full = false }: { full?: boolean }) {
   const { t } = useApp()
-  const [f, ...rest] = STORIES
+  const [f, ...rest] = FIELD_STORIES
   return (
     <section className="sec bg-bg2">
       <div className="wrap">
@@ -791,24 +807,27 @@ export function Stories({ full = false }: { full?: boolean }) {
         <div className={`grid gap-x-10 gap-y-12 lg:grid-cols-12 ${full ? '' : 'mt-14'}`}>
           <Reveal className="lg:col-span-7">
             <Link to="/news" data-cursor="OPEN" className="zoom-host group block">
-              <div className="zoom-img aspect-[16/11] overflow-hidden rounded-[20px] bg-tint"><Img src={f.img} alt={`${f.title.en} (placeholder image)`} /></div>
-              <p className="eyebrow mt-6 text-brand">{t(f.cat.en, f.cat.ar)}</p>
-              <h3 className="t-h3 mt-3 max-w-[24ch] text-ink transition-colors group-hover:text-brand">{t(f.title.en, f.title.ar)}</h3>
+              <div className="zoom-img aspect-[16/11] overflow-hidden rounded-[20px] bg-tint"><Img src={f.image} alt={f.title ? t(f.title.en, f.title.ar) : t('Youth LED field activity', 'نشاط ميداني لشباب ليد')} /></div>
+              {f.category && <p className="eyebrow mt-6 text-brand">{t(f.category.en, f.category.ar)}</p>}
+              <h3 className="t-h3 mt-3 max-w-[24ch] text-ink transition-colors group-hover:text-brand">{f.title ? t(f.title.en, f.title.ar) : t('Field story details to be added', 'ستُضاف تفاصيل القصة الميدانية')}</h3>
+              {f.summary && <p className="t-body mt-3 text-tx2">{t(f.summary.en, f.summary.ar)}</p>}
             </Link>
           </Reveal>
           <div className="lg:col-span-5">
             {rest.map((s, i) => (
               <Reveal key={i} delay={i * 80}>
                 <Link to="/news" className="zoom-host group grid grid-cols-[6.5rem_1fr] items-center gap-5 border-t border-bd py-6 first:border-t-0 first:pt-0">
-                  <div className="zoom-img aspect-square overflow-hidden rounded-xl bg-tint"><Img src={s.img} alt="" /></div>
+                  <div className="zoom-img aspect-square overflow-hidden rounded-xl bg-tint"><Img src={s.image} alt={s.title ? t(s.title.en, s.title.ar) : t('Youth LED field activity', 'نشاط ميداني لشباب ليد')} /></div>
                   <div>
-                    <p className="eyebrow text-brand">{t(s.cat.en, s.cat.ar)}</p>
-                    <h3 className="t-h4 mt-2 text-ink transition-colors group-hover:text-brand">{t(s.title.en, s.title.ar)}</h3>
+                    {s.category && <p className="eyebrow text-brand">{t(s.category.en, s.category.ar)}</p>}
+                    <h3 className="t-h4 mt-2 text-ink transition-colors group-hover:text-brand">{s.title ? t(s.title.en, s.title.ar) : t('Field story details to be added', 'ستُضاف تفاصيل القصة الميدانية')}</h3>
+                    {s.date && <p className="mt-2 text-xs text-tx2">{t(s.date.en, s.date.ar)}</p>}
+                    {s.location && <p className="mt-1 text-xs text-tx2">{t(s.location.en, s.location.ar)}</p>}
                   </div>
                 </Link>
               </Reveal>
             ))}
-            <p className="mt-2 text-xs text-tx2">{t('Sample editorial content: titles reference real activities; articles to be added.', 'محتوى تحريري تجريبي: العناوين تشير إلى أنشطة حقيقية، والمقالات ستُضاف لاحقاً.')}</p>
+            <p className="mt-2 text-xs text-tx2">{t('Verified field titles, dates and links will be added when supplied.', 'ستُضاف عناوين وتواريخ وروابط ميدانية موثقة عند تزويدنا بها.')}</p>
           </div>
         </div>
       </div>

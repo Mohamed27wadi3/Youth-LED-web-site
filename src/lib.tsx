@@ -299,7 +299,7 @@ export function Img({
   className?: string
   style?: CSSProperties
 }) {
-  return <img src={src} alt={alt} loading="lazy" className={`h-full w-full object-cover ${className}`} style={style} />
+  return <img src={src} alt={alt} loading="lazy" decoding="async" className={`h-full w-full object-cover ${className}`} style={style} />
 }
 
 export function Instagram({ size = 20, className = '', strokeWidth = 1.9 }: { size?: number; className?: string; strokeWidth?: number }) {

@@ -23,6 +23,17 @@ export const IMG = {
 
 export const LOGO = new URL('./assets/attachment-1.png', import.meta.url).href
 
+export const LOCAL_IMG = {
+  learn: new URL('./assets/events/learn-tot-2025-2.jpg', import.meta.url).href,
+  speak: new URL('./assets/events/speak-gov-2.jpg', import.meta.url).href,
+  build: new URL('./assets/events/build-tot-rihal.jpg', import.meta.url).href,
+  connect: new URL('./assets/events/connect-workshop.jpeg', import.meta.url).href,
+  bacMeetup: new URL('./assets/events/event-bac-meetup.jpg', import.meta.url).href,
+  publicSpeaking: new URL('./assets/events/event-public-speaking.jpg', import.meta.url).href,
+  policyPaper: new URL('./assets/events/event-policy-paper.jpg', import.meta.url).href,
+  governance: new URL('./assets/events/event-governance.jpg', import.meta.url).href,
+}
+
 export const NAV: { path: string; label: B }[] = [
   { path: '/about', label: { en: 'About', ar: 'من نحن' } },
   { path: '/what-we-do', label: { en: 'What We Do', ar: 'ماذا نفعل' } },
@@ -54,6 +65,7 @@ export const PILLARS: {
   desc: B
   tags: B[]
   img: string
+  crop: string
 }[] = [
   {
     key: 'learn',
@@ -68,7 +80,8 @@ export const PILLARS: {
       { en: 'Life skills', ar: 'مهارات حياتية' },
       { en: 'Learning by doing', ar: 'التعلّم بالممارسة' },
     ],
-    img: IMG.learn,
+    img: LOCAL_IMG.learn,
+    crop: '50% 42%',
   },
   {
     key: 'speak',
@@ -83,7 +96,8 @@ export const PILLARS: {
       { en: 'Debate', ar: 'النقاش' },
       { en: 'Youth voice', ar: 'صوت الشباب' },
     ],
-    img: IMG.speak,
+    img: LOCAL_IMG.speak,
+    crop: '50% 40%',
   },
   {
     key: 'build',
@@ -98,7 +112,8 @@ export const PILLARS: {
       { en: 'Innovation', ar: 'الابتكار' },
       { en: 'Community solutions', ar: 'حلول مجتمعية' },
     ],
-    img: IMG.build,
+    img: LOCAL_IMG.build,
+    crop: '50% 45%',
   },
   {
     key: 'connect',
@@ -113,7 +128,8 @@ export const PILLARS: {
       { en: 'Youth exchanges', ar: 'التبادل الشبابي' },
       { en: 'Partnerships', ar: 'الشراكات' },
     ],
-    img: IMG.connect,
+    img: LOCAL_IMG.connect,
+    crop: '50% 38%',
   },
 ]
 
@@ -277,6 +293,29 @@ export const PROJECTS: Project[] = [
   },
 ]
 
+export type EventRecord = {
+  id: string
+  title?: B
+  image: string
+  date?: B
+  location?: B
+  summary?: B
+  topics?: B[]
+  partner?: B
+  href?: string
+}
+
+export const EVENTS: EventRecord[] = [
+  { id: 'event-01', image: LOCAL_IMG.learn },
+  { id: 'event-02', image: LOCAL_IMG.speak },
+  { id: 'event-03', image: LOCAL_IMG.build },
+  { id: 'event-04', image: LOCAL_IMG.connect },
+  { id: 'event-05', image: LOCAL_IMG.bacMeetup },
+  { id: 'event-06', image: LOCAL_IMG.publicSpeaking },
+  { id: 'event-07', image: LOCAL_IMG.policyPaper },
+  { id: 'event-08', image: LOCAL_IMG.governance },
+]
+
 export const BOARD: B[] = [
   { en: 'President', ar: 'الرئيس' },
   { en: 'General Secretary', ar: 'الأمين العام' },
@@ -285,6 +324,18 @@ export const BOARD: B[] = [
   { en: 'Treasurer', ar: 'أمين المال' },
   { en: 'Wilaya Coordinator', ar: 'منسّق الولايات' },
 ]
+
+export type TeamMember = {
+  id: string
+  name?: string
+  role: B
+  department?: B
+  bio?: B
+  image?: string
+  linkedin?: string
+}
+
+export const TEAM_MEMBERS: TeamMember[] = BOARD.map((role, index) => ({ id: `board-${index + 1}`, role }))
 
 export const DEPARTMENTS: { name: B; desc: B; skills: B[]; img: string }[] = [
   {
@@ -375,6 +426,24 @@ export const STORIES: { cat: B; title: B; img: string }[] = [
     title: { en: 'BAC-FAC Meetup: peers guiding peers', ar: 'لقاء باك-فاك: أقران يرشدون أقرانهم' },
     img: IMG.who,
   },
+]
+
+export type FieldStory = {
+  id: string
+  image: string
+  category?: B
+  title?: B
+  summary?: B
+  date?: B
+  location?: B
+  href?: string
+}
+
+export const FIELD_STORIES: FieldStory[] = [
+  { id: 'field-01', image: LOCAL_IMG.learn },
+  { id: 'field-02', image: LOCAL_IMG.speak },
+  { id: 'field-03', image: LOCAL_IMG.build },
+  { id: 'field-04', image: LOCAL_IMG.connect },
 ]
 
 export const OPPS: { type: B; title: B; status: 'OPEN' | 'UPCOMING' | 'CLOSED' }[] = [
