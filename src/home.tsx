@@ -518,7 +518,7 @@ export function ProjectsShowcase() {
       <div className="wrap">
         <Reveal><Eyebrow>{t('SELECTED ACTIVITIES', 'أنشطة مختارة')}</Eyebrow></Reveal>
         <h2 className="t-h2 mt-6 max-w-[16ch] text-ink"><MaskLines lines={[t('REAL EVENTS,', 'فعاليات حقيقية،'), t('REAL SKILLS.', 'مهارات حقيقية.')]} /></h2>
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {EVENTS.map((event, i) => <EventCard key={event.id} event={event} delay={i * 60} onOpen={() => setSelected(event)} />)}
         </div>
       </div>
@@ -538,6 +538,8 @@ export function EventCard({ event, delay = 0, onOpen }: { event: EventRecord; de
         <div className="flex flex-1 flex-col p-4 sm:p-5">
           {event.title ? <h3 className="text-[1.1rem] font-semibold leading-[1.25] text-ink">{t(event.title.en, event.title.ar)}</h3> : <p className="text-sm font-semibold text-tx2">{t('Event details to be added', 'ستُضاف تفاصيل النشاط')}</p>}
           {event.date && <p className="mt-2 text-sm text-tx2">{t(event.date.en, event.date.ar)}</p>}
+          {event.summary && <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-tx2">{t(event.summary.en, event.summary.ar)}</p>}
+          {event.partner && <p className="mt-3 line-clamp-2 text-xs leading-relaxed text-tx2"><strong className="text-ink">{t('Partner:', 'الشريك:')}</strong> {t(event.partner.en, event.partner.ar)}</p>}
           <span className="tlink mt-5 self-start text-brand">{t('View details', 'عرض التفاصيل')} <Arrow /></span>
         </div>
       </article>
@@ -560,8 +562,8 @@ export function EventDetailsDialog({ event, onClose }: { event: EventRecord; onC
     <div className="fixed inset-0 z-[120] grid place-items-center bg-[#06152f]/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(mouseEvent) => mouseEvent.target === mouseEvent.currentTarget && onClose()}>
       <article role="dialog" aria-modal="true" aria-label={title} className="relative max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-surface shadow-2xl">
         <button type="button" onClick={onClose} aria-label={t('Close event details', 'إغلاق تفاصيل الفعالية')} className="absolute end-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-ink shadow-md"><X size={20} /></button>
-        <div className="relative aspect-[16/8] overflow-hidden bg-tint">
-          {images.length ? <Img src={images[imageIndex]} alt={title} /> : <div className="grid h-full place-items-center px-6 text-center text-sm text-tx2">{t('Verified event image to be added', 'ستُضاف صورة الفعالية الموثقة')}</div>}
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#e9eef8]">
+          {images.length ? <Img src={images[imageIndex]} alt={title} className="object-contain" /> : <div className="grid h-full place-items-center px-6 text-center text-sm text-tx2">{t('Verified event image to be added', 'ستُضاف صورة الفعالية الموثقة')}</div>}
           {images.length > 1 && <>
             <button type="button" onClick={() => setImageIndex((index) => (index - 1 + images.length) % images.length)} aria-label={t('Previous image', 'الصورة السابقة')} className="absolute start-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow"><ChevronLeft size={20} /></button>
             <button type="button" onClick={() => setImageIndex((index) => (index + 1) % images.length)} aria-label={t('Next image', 'الصورة التالية')} className="absolute end-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow"><ChevronRight size={20} /></button>
