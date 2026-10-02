@@ -242,7 +242,7 @@ export const PROJECTS: Project[] = [
     cat: { en: 'Communication', ar: 'التواصل' },
     kind: 'dialogue',
     outcome: { en: 'Structured practice in speaking with clarity and confidence.', ar: 'تدريب منظّم على التحدث بوضوح وثقة.' },
-    img: IMG.speaking,
+    img: LOCAL_IMG.publicSpeaking,
   },
   {
     id: 'training-of-trainers',
@@ -250,7 +250,7 @@ export const PROJECTS: Project[] = [
     cat: { en: 'Capacity building', ar: 'بناء القدرات' },
     kind: 'training',
     outcome: { en: 'Building facilitation capacity among young trainers.', ar: 'بناء قدرات التيسير لدى المكوّنين الشباب.' },
-    img: IMG.tot,
+    img: LOCAL_IMG.learn,
   },
   {
     id: 'bac-fac-meetup',
@@ -258,7 +258,7 @@ export const PROJECTS: Project[] = [
     cat: { en: 'Peer learning', ar: 'التعلّم بين الأقران' },
     kind: 'community',
     outcome: { en: 'A peer meetup around the move from baccalaureate to university.', ar: 'لقاء بين الأقران حول الانتقال من البكالوريا إلى الجامعة.' },
-    img: IMG.who,
+    img: LOCAL_IMG.bacMeetup,
   },
   {
     id: 'design-thinking-games',
@@ -274,7 +274,7 @@ export const PROJECTS: Project[] = [
     cat: { en: 'Policy dialogue', ar: 'الحوار السياساتي' },
     kind: 'dialogue',
     outcome: { en: 'Turning youth perspectives into structured recommendations.', ar: 'تحويل وجهات نظر الشباب إلى توصيات منظّمة.' },
-    img: IMG.policy,
+    img: LOCAL_IMG.policyPaper,
   },
   {
     id: 'job-hunting',
@@ -282,7 +282,7 @@ export const PROJECTS: Project[] = [
     cat: { en: 'Employability', ar: 'قابلية التوظيف' },
     kind: 'training',
     outcome: { en: 'Practical tools for CVs, interviews and digital job search.', ar: 'أدوات عملية للسيرة الذاتية والمقابلات والبحث الرقمي عن عمل.' },
-    img: IMG.job,
+    img: LOCAL_IMG.personalBranding,
   },
   {
     id: 'revade',
