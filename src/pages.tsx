@@ -194,7 +194,7 @@ export function ProjectDetail({ id }: { id?: string }) {
       <PageHero crumb={t(p.title.en, p.title.ar)} eyebrow={t(p.cat.en, p.cat.ar).toUpperCase()} title={[t(p.title.en, p.title.ar)]} lead={t(p.outcome.en, p.outcome.ar)} />
       <section className="sec bg-bg">
         <div className="wrap">
-          <Reveal kind="clip-b" className="overflow-hidden rounded-[20px] bg-tint"><div className="aspect-[16/8]"><Img src={p.img} alt={`${p.title.en} (placeholder image)`} /></div></Reveal>
+          <div className="overflow-hidden rounded-[20px] bg-tint"><div className="aspect-[16/8]"><Img src={p.img} alt={`${p.title.en} — Youth LED project`} /></div></div>
           <div className="mt-16 grid gap-12 lg:grid-cols-[4fr_8fr] lg:gap-20">
             <dl className="space-y-6 border-t border-bd pt-6 lg:border-t-0 lg:pt-0">
               <div><dt className="eyebrow text-tx2">{t('Category', 'الفئة')}</dt><dd className="t-h4 mt-2 text-ink">{t(p.cat.en, p.cat.ar)}</dd></div>
