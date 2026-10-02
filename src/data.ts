@@ -33,6 +33,7 @@ export const LOCAL_IMG = {
   policyPaper: new URL('./assets/events/event-policy-paper.jpg', import.meta.url).href,
   governance: new URL('./assets/events/event-governance.jpg', import.meta.url).href,
   personalBranding: new URL('./assets/events/event-personal-branding.jpg', import.meta.url).href,
+  cyberSecurity: new URL('./assets/events/project-cyber-security.jpg', import.meta.url).href,
 }
 
 export const NAV: { path: string; label: B }[] = [
@@ -228,6 +229,14 @@ export type Project = {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    id: 'cyber-security-workshop',
+    title: { en: 'Cyber Security Workshop', ar: 'تكوين الأمن السيبراني' },
+    cat: { en: 'Digital skills', ar: 'المهارات الرقمية' },
+    kind: 'training',
+    outcome: { en: 'A Youth LED workshop covering threat detection, network security, data protection and compliance and risk.', ar: 'ورشة لشباب ليد حول كشف التهديدات وأمن الشبكات وحماية البيانات والامتثال والمخاطر.' },
+    img: LOCAL_IMG.cyberSecurity,
+  },
   {
     id: 'green-impact',
     title: { en: 'Green Impact', ar: 'الأثر الأخضر' },
