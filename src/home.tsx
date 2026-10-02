@@ -674,11 +674,16 @@ const proj = ([lo, la]: [number, number]) => [(lo + 9) * 34, (37.5 - la) * 34] a
 const NODES: { coordinates: [number, number]; label: { en: string; ar: string } }[] = [
   { coordinates: [3.0588, 36.7538], label: { en: 'Algiers', ar: 'الجزائر العاصمة' } },
   { coordinates: [2.828, 36.47], label: { en: 'Blida', ar: 'البليدة' } },
+  { coordinates: [-1.315, 34.882], label: { en: 'Tlemcen', ar: 'تلمسان' } },
   { coordinates: [-0.6337, 35.6971], label: { en: 'Oran', ar: 'وهران' } },
+  { coordinates: [5.06, 36.75], label: { en: 'Bejaia', ar: 'بجاية' } },
+  { coordinates: [0.089, 35.93], label: { en: 'Mostaganem', ar: 'مستغانم' } },
   { coordinates: [2.44, 36.59], label: { en: 'Tipaza', ar: 'تيبازة' } },
   { coordinates: [-0.3, 33.27], label: { en: 'Naama', ar: 'النعامة' } },
   { coordinates: [6.2646, 36.45], label: { en: 'Mila', ar: 'ميلة' } },
   { coordinates: [5.7667, 36.82], label: { en: 'Jijel', ar: 'جيجل' } },
+  { coordinates: [6.17, 35.56], label: { en: 'Batna', ar: 'باتنة' } },
+  { coordinates: [6.614, 36.365], label: { en: 'Constantine', ar: 'قسنطينة' } },
 ]
 
 export function AlgeriaMap() {
