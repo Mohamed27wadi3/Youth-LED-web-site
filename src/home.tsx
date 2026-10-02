@@ -551,16 +551,18 @@ export function EventDetailsDialog({ event, onClose }: { event: EventRecord; onC
   const { t } = useApp()
   const images = event.images?.length ? event.images : event.image ? [event.image] : []
   const [imageIndex, setImageIndex] = useState(0)
+  const dialogRef = useRef<HTMLElement>(null)
   useEffect(() => {
     const closeOnEscape = (keyEvent: KeyboardEvent) => keyEvent.key === 'Escape' && onClose()
     document.addEventListener('keydown', closeOnEscape)
     document.body.style.overflow = 'hidden'
+    dialogRef.current?.scrollTo({ top: 0, behavior: 'auto' })
     return () => { document.removeEventListener('keydown', closeOnEscape); document.body.style.overflow = '' }
   }, [onClose])
   const title = event.title ? t(event.title.en, event.title.ar) : t('Event details', 'تفاصيل الفعالية')
   return (
     <div className="fixed inset-0 z-[120] grid place-items-center bg-[#06152f]/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(mouseEvent) => mouseEvent.target === mouseEvent.currentTarget && onClose()}>
-      <article role="dialog" aria-modal="true" aria-label={title} className="relative max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-surface shadow-2xl">
+      <article ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} className="relative max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-surface shadow-2xl">
         <button type="button" onClick={onClose} aria-label={t('Close event details', 'إغلاق تفاصيل الفعالية')} className="absolute end-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-ink shadow-md"><X size={20} /></button>
         <div className="relative aspect-[4/3] overflow-hidden bg-[#e9eef8]">
           {images.length ? <Img src={images[imageIndex]} alt={title} className="object-contain" /> : <div className="grid h-full place-items-center px-6 text-center text-sm text-tx2">{t('Verified event image to be added', 'ستُضاف صورة الفعالية الموثقة')}</div>}
