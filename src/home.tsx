@@ -673,6 +673,7 @@ const OUTLINE: [number, number][] = [
 const proj = ([lo, la]: [number, number]) => [(lo + 9) * 34, (37.5 - la) * 34] as const
 const NODES: { coordinates: [number, number]; label: { en: string; ar: string } }[] = [
   { coordinates: [3.0588, 36.7538], label: { en: 'Algiers', ar: 'الجزائر العاصمة' } },
+  { coordinates: [2.828, 36.47], label: { en: 'Blida', ar: 'البليدة' } },
   { coordinates: [-0.6337, 35.6971], label: { en: 'Oran', ar: 'وهران' } },
   { coordinates: [2.44, 36.59], label: { en: 'Tipaza', ar: 'تيبازة' } },
   { coordinates: [-0.3, 33.27], label: { en: 'Naama', ar: 'النعامة' } },
