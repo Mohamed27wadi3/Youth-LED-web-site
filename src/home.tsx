@@ -533,12 +533,12 @@ export function EventCard({ event, delay = 0 }: { event: EventRecord; delay?: nu
   return (
     <Reveal delay={delay} className="h-full">
       <article className="card flex h-full flex-col overflow-hidden">
-        <div className="grid aspect-[4/3] place-items-center overflow-hidden bg-tint">
+        <div className="grid aspect-square place-items-center overflow-hidden bg-tint">
           {event.image ? <Img src={event.image} alt={event.title ? t(event.title.en, event.title.ar) : t('Youth LED activity photo', 'صورة من نشاط لشباب ليد')} /> : <p className="px-6 text-center text-sm text-tx2">{t('Verified activity image to be added', 'ستُضاف صورة النشاط الموثقة')}</p>}
         </div>
-        <div className="flex flex-1 flex-col p-5 sm:p-6">
-          {event.title ? <h3 className="t-h4 break-words text-ink">{t(event.title.en, event.title.ar)}</h3> : <p className="text-sm font-semibold text-tx2">{t('Event details to be added', 'ستُضاف تفاصيل النشاط')}</p>}
-          {event.date && <p className="mt-3 text-sm text-tx2">{t(event.date.en, event.date.ar)}</p>}
+        <div className="flex flex-1 flex-col p-4 sm:p-5">
+          {event.title ? <h3 className="text-[1.1rem] font-semibold leading-[1.25] text-ink">{t(event.title.en, event.title.ar)}</h3> : <p className="text-sm font-semibold text-tx2">{t('Event details to be added', 'ستُضاف تفاصيل النشاط')}</p>}
+          {event.date && <p className="mt-2 text-sm text-tx2">{t(event.date.en, event.date.ar)}</p>}
           {event.location && <p className="mt-1 text-sm text-tx2">{t(event.location.en, event.location.ar)}</p>}
           {event.summary && <p className="t-body mt-4 text-[15px] text-tx2">{t(event.summary.en, event.summary.ar)}</p>}
           {event.topics && <ul className="mt-4 flex flex-wrap gap-2">{event.topics.map((topic) => <li key={topic.en} className="rounded-full border border-bd px-3 py-1.5 text-xs text-ink">{t(topic.en, topic.ar)}</li>)}</ul>}
