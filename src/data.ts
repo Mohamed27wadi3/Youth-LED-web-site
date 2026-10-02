@@ -307,6 +307,7 @@ export type EventRecord = {
   id: string
   title?: B
   image?: string
+  images?: string[]
   date?: B
   location?: B
   summary?: B
@@ -331,6 +332,7 @@ export const EVENTS: EventRecord[] = [
     participants: { en: 'ToT participants; no complete attendance list published.', ar: 'المشاركون في مسار تدريب المدربين؛ لم تُنشر قائمة كاملة للحضور.' },
     partner: { en: 'Konrad-Adenauer-Stiftung Algérie', ar: 'مؤسسة كونراد أديناور الجزائر' },
     href: 'https://dz.linkedin.com/in/meriem-benbouabdellah-a30650421',
+    images: [LOCAL_IMG.learn],
   },
   {
     id: 'bac-fac-meetups-2026',
@@ -343,6 +345,7 @@ export const EVENTS: EventRecord[] = [
     participants: { en: '2026 baccalaureate graduates, parents, students, graduates and young professionals.', ar: 'حاملو بكالوريا 2026، الأولياء، الطلبة، الخريجون والمهنيون الشباب.' },
     partner: { en: 'DZ Young Leaders, Arzaki Taboudoucht Cultural Centre, LEAP DZ, YIXIN E-Santé and ELEVENT Youth Clubs', ar: 'DZ Young Leaders والمركز الثقافي أرزقي تابودوشت وLEAP DZ وYIXIN E-Santé وELEVENT Youth Clubs' },
     href: 'https://dz.linkedin.com/company/youthledalgeria',
+    images: [LOCAL_IMG.bacMeetup],
   },
   {
     id: 'project-management-public-speaking-2026',
@@ -353,6 +356,7 @@ export const EVENTS: EventRecord[] = [
     facilitator: { en: 'BELHAMRA Hamid', ar: 'حميد بلحمرة' },
     participants: { en: 'Young people, students, volunteers, initiative builders and people interested in leadership and community work.', ar: 'شباب وطلبة ومتطوعون ورواد مبادرات ومهتمون بالقيادة والعمل المجتمعي.' },
     href: 'https://www.linkedin.com/posts/youthledalgeria_youthledalgeria-projectmanagement-publicspeaking-activity-7489823763392413696-Dv47',
+    images: [LOCAL_IMG.publicSpeaking],
   },
   {
     id: 'save-earth-game-2026',
@@ -364,6 +368,7 @@ export const EVENTS: EventRecord[] = [
     participants: { en: 'Youth, educators, association members, students, facilitators and community leaders; 15 places announced, not confirmed attendance.', ar: 'شباب ومربون وأعضاء جمعيات وطلبة وميسّرون وقادة مجتمعيون؛ أُعلن عن 15 مكاناً دون إثبات عدد الحضور.' },
     partner: { en: 'AXXAM Business Hub', ar: 'AXXAM Business Hub' },
     href: 'https://www.linkedin.com/posts/youthledalgeria_savetheearthonegameatatime2026-environmentaleducation-activity-7465869079510220800-jejT',
+    images: [LOCAL_IMG.governance],
   },
   {
     id: 'personal-branding-linkedin',
@@ -373,6 +378,7 @@ export const EVENTS: EventRecord[] = [
     facilitator: { en: 'Rihal Na', ar: 'ريهال نا' },
     participants: { en: 'Professionals, students and freelancers.', ar: 'مهنيون وطلبة ومستقلون.' },
     href: 'https://www.linkedin.com/posts/rihal-na_what-an-incredible-session-it-was-an-activity-7297731017002352641-dEJ6',
+    images: [LOCAL_IMG.personalBranding],
   },
   {
     id: 'lcoy-algeria-2023',
@@ -383,6 +389,7 @@ export const EVENTS: EventRecord[] = [
     topics: [{ en: 'Youth climate action', ar: 'العمل المناخي الشبابي' }, { en: 'Climate finance', ar: 'تمويل المناخ' }],
     partner: { en: 'AOEE; Selma Bichbich for two side sessions', ar: 'AOEE؛ وسلمى بيشبش في جلستين جانبيتين' },
     href: 'https://www.linkedin.com/posts/algerian-organization-of-energy-engineers-aoee_aoee-lcoy2023-activity-7119929385557602304-wbW8',
+    images: [LOCAL_IMG.governance],
   },
   {
     id: 'green-impact',
@@ -413,6 +420,7 @@ export const EVENTS: EventRecord[] = [
     facilitator: { en: 'Idir Nasser BELKEBIR', ar: 'إدير ناصر بلكبير' },
     partner: { en: 'Konrad-Adenauer-Stiftung Algérie', ar: 'مؤسسة كونراد أديناور الجزائر' },
     href: 'https://www.linkedin.com/posts/youthledalgeria_youthledalgeria-tot2025-softskills-activity-7392924771191263232-B8Ne',
+    images: [LOCAL_IMG.learn],
   },
   {
     id: 'revade-2022',
@@ -422,6 +430,7 @@ export const EVENTS: EventRecord[] = [
     organiser: { en: 'Youth LED Algeria, participant within Green Impact activities', ar: 'شباب ليد الجزائر، مشاركة ضمن أنشطة الأثر الأخضر' },
     notes: { en: 'Participation, not organisation of the exhibition.', ar: 'مشاركة وليست تنظيمًا للمعرض.' },
     href: 'https://www.undp.org/fr/algeria/actualites/renforcer-les-capacites-des-jeunes-dans-lentreprenariat-vert',
+    images: [LOCAL_IMG.green],
   },
   {
     id: 'revade-catalogue-2024',
@@ -430,6 +439,7 @@ export const EVENTS: EventRecord[] = [
     location: { en: 'SAFEX, Algiers', ar: 'صافكس، الجزائر' },
     summary: { en: 'Youth LED Algeria is listed in the associations section of the official catalogue; the listing alone does not establish activity details or attendance.', ar: 'أُدرجت جمعية شباب ليد الجزائر في قسم الجمعيات بالكتالوج الرسمي؛ ولا يثبت الإدراج وحده تفاصيل الأنشطة أو الحضور.' },
     href: 'https://revade.dz/bilan-catalogues/Catalogue%20REVADE%208e-1.pdf',
+    images: [LOCAL_IMG.governance],
   },
   {
     id: 'empoweru-bootcamp',
@@ -438,6 +448,7 @@ export const EVENTS: EventRecord[] = [
     participants: { en: 'Algerian youth aged 18-30, especially underrepresented backgrounds.', ar: 'شباب جزائريون من 18 إلى 30 سنة، خاصة من خلفيات أقل تمثيلاً.' },
     notes: { en: 'Date and location must be completed before publishing a dated event card.', ar: 'يجب استكمال التاريخ والمكان قبل نشر بطاقة مؤرخة.' },
     href: 'https://youthproaktiv.org/wp-content/uploads/2024/10/COLLECTION-OF-BEST-PRACTICES_compressed-1.pdf',
+    images: [LOCAL_IMG.connect],
   },
 ]
 

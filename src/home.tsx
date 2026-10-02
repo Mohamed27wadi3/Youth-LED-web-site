@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import {
-  Users, Briefcase, Lightbulb, MessagesSquare, Sprout, Network, Plus, Minus, Globe2, Quote,
+  Users, Briefcase, Lightbulb, MessagesSquare, Sprout, Network, Plus, Minus, Globe2, Quote, X, ChevronLeft, ChevronRight,
 } from 'lucide-react'
 import {
   Arrow, Btn, CountUp, Eyebrow, Img, Link, MaskLines, Reveal, reducedMotion, useApp, useScrollProgress,
@@ -512,45 +512,80 @@ export function Green() {
 /* ───────────────────────── PROJECTS ───────────────────────── */
 export function ProjectsShowcase() {
   const { t } = useApp()
+  const [selected, setSelected] = useState<EventRecord | null>(null)
   return (
     <section className="sec bg-bg">
       <div className="wrap">
         <Reveal><Eyebrow>{t('SELECTED ACTIVITIES', 'أنشطة مختارة')}</Eyebrow></Reveal>
         <h2 className="t-h2 mt-6 max-w-[16ch] text-ink"><MaskLines lines={[t('REAL EVENTS,', 'فعاليات حقيقية،'), t('REAL SKILLS.', 'مهارات حقيقية.')]} /></h2>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {EVENTS.map((event, i) => <EventCard key={event.id} event={event} delay={i * 60} />)}
+          {EVENTS.map((event, i) => <EventCard key={event.id} event={event} delay={i * 60} onOpen={() => setSelected(event)} />)}
         </div>
       </div>
+      {selected && <EventDetailsDialog event={selected} onClose={() => setSelected(null)} />}
     </section>
   )
 }
 
-export function EventCard({ event, delay = 0 }: { event: EventRecord; delay?: number }) {
+export function EventCard({ event, delay = 0, onOpen }: { event: EventRecord; delay?: number; onOpen: () => void }) {
   const { t } = useApp()
-  const detail = event.href ? (
-    <a href={event.href} className="tlink mt-5 self-start text-brand">{t('View details', 'عرض التفاصيل')} <Arrow /></a>
-  ) : null
   return (
     <Reveal delay={delay} className="h-full">
-      <article className="card flex h-full flex-col overflow-hidden">
+      <article role="button" tabIndex={0} onClick={onOpen} onKeyDown={(eventKey) => { if (eventKey.key === 'Enter' || eventKey.key === ' ') { eventKey.preventDefault(); onOpen() } }} className="card group flex h-full cursor-pointer flex-col overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-brand">
         <div className="grid aspect-square place-items-center overflow-hidden bg-tint">
           {event.image ? <Img src={event.image} alt={event.title ? t(event.title.en, event.title.ar) : t('Youth LED activity photo', 'صورة من نشاط لشباب ليد')} /> : <p className="px-6 text-center text-sm text-tx2">{t('Verified activity image to be added', 'ستُضاف صورة النشاط الموثقة')}</p>}
         </div>
         <div className="flex flex-1 flex-col p-4 sm:p-5">
           {event.title ? <h3 className="text-[1.1rem] font-semibold leading-[1.25] text-ink">{t(event.title.en, event.title.ar)}</h3> : <p className="text-sm font-semibold text-tx2">{t('Event details to be added', 'ستُضاف تفاصيل النشاط')}</p>}
           {event.date && <p className="mt-2 text-sm text-tx2">{t(event.date.en, event.date.ar)}</p>}
-          {event.location && <p className="mt-1 text-sm text-tx2">{t(event.location.en, event.location.ar)}</p>}
-          {event.summary && <p className="t-body mt-4 text-[15px] text-tx2">{t(event.summary.en, event.summary.ar)}</p>}
-          {event.topics && <ul className="mt-4 flex flex-wrap gap-2">{event.topics.map((topic) => <li key={topic.en} className="rounded-full border border-bd px-3 py-1.5 text-xs text-ink">{t(topic.en, topic.ar)}</li>)}</ul>}
-          {event.organiser && <p className="mt-4 text-xs leading-relaxed text-tx2"><strong className="font-semibold text-ink">{t('Role:', 'الدور:')}</strong> {t(event.organiser.en, event.organiser.ar)}</p>}
-          {event.facilitator && <p className="mt-2 text-xs leading-relaxed text-tx2"><strong className="font-semibold text-ink">{t('Facilitator:', 'المؤطر:')}</strong> {t(event.facilitator.en, event.facilitator.ar)}</p>}
-          {event.participants && <p className="mt-2 text-xs leading-relaxed text-tx2"><strong className="font-semibold text-ink">{t('Participants:', 'المشاركون:')}</strong> {t(event.participants.en, event.participants.ar)}</p>}
-          {event.partner && <p className="mt-4 text-xs text-tx2">{t('Partner:', 'الشريك:')} {t(event.partner.en, event.partner.ar)}</p>}
-          {event.notes && <p className="mt-3 border-s-2 border-accent ps-3 text-xs leading-relaxed text-tx2">{t(event.notes.en, event.notes.ar)}</p>}
-          {detail}
+          <span className="tlink mt-5 self-start text-brand">{t('View details', 'عرض التفاصيل')} <Arrow /></span>
         </div>
       </article>
     </Reveal>
+  )
+}
+
+export function EventDetailsDialog({ event, onClose }: { event: EventRecord; onClose: () => void }) {
+  const { t } = useApp()
+  const images = event.images?.length ? event.images : event.image ? [event.image] : []
+  const [imageIndex, setImageIndex] = useState(0)
+  useEffect(() => {
+    const closeOnEscape = (keyEvent: KeyboardEvent) => keyEvent.key === 'Escape' && onClose()
+    document.addEventListener('keydown', closeOnEscape)
+    document.body.style.overflow = 'hidden'
+    return () => { document.removeEventListener('keydown', closeOnEscape); document.body.style.overflow = '' }
+  }, [onClose])
+  const title = event.title ? t(event.title.en, event.title.ar) : t('Event details', 'تفاصيل الفعالية')
+  return (
+    <div className="fixed inset-0 z-[120] grid place-items-center bg-[#06152f]/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(mouseEvent) => mouseEvent.target === mouseEvent.currentTarget && onClose()}>
+      <article role="dialog" aria-modal="true" aria-label={title} className="relative max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-surface shadow-2xl">
+        <button type="button" onClick={onClose} aria-label={t('Close event details', 'إغلاق تفاصيل الفعالية')} className="absolute end-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-ink shadow-md"><X size={20} /></button>
+        <div className="relative aspect-[16/8] overflow-hidden bg-tint">
+          {images.length ? <Img src={images[imageIndex]} alt={title} /> : <div className="grid h-full place-items-center px-6 text-center text-sm text-tx2">{t('Verified event image to be added', 'ستُضاف صورة الفعالية الموثقة')}</div>}
+          {images.length > 1 && <>
+            <button type="button" onClick={() => setImageIndex((index) => (index - 1 + images.length) % images.length)} aria-label={t('Previous image', 'الصورة السابقة')} className="absolute start-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow"><ChevronLeft size={20} /></button>
+            <button type="button" onClick={() => setImageIndex((index) => (index + 1) % images.length)} aria-label={t('Next image', 'الصورة التالية')} className="absolute end-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow"><ChevronRight size={20} /></button>
+          </>}
+        </div>
+        <div className="grid gap-8 p-6 sm:p-9 lg:grid-cols-[1fr_2fr]">
+          <div>
+            <p className="eyebrow text-brand">{event.date ? t(event.date.en, event.date.ar) : t('Date to be confirmed', 'التاريخ في انتظار التأكيد')}</p>
+            {event.location && <p className="mt-3 text-sm text-tx2">{t(event.location.en, event.location.ar)}</p>}
+            {event.partner && <p className="mt-4 text-sm text-tx2"><strong className="text-ink">{t('Partner:', 'الشريك:')}</strong> {t(event.partner.en, event.partner.ar)}</p>}
+          </div>
+          <div>
+            <h2 className="t-h3 text-ink">{title}</h2>
+            {event.summary && <p className="t-body mt-4 text-tx2">{t(event.summary.en, event.summary.ar)}</p>}
+            {event.topics && <ul className="mt-5 flex flex-wrap gap-2">{event.topics.map((topic) => <li key={topic.en} className="rounded-full border border-bd px-3 py-1.5 text-xs text-ink">{t(topic.en, topic.ar)}</li>)}</ul>}
+            {event.organiser && <p className="mt-5 text-sm text-tx2"><strong className="text-ink">{t('Role:', 'الدور:')}</strong> {t(event.organiser.en, event.organiser.ar)}</p>}
+            {event.facilitator && <p className="mt-2 text-sm text-tx2"><strong className="text-ink">{t('Facilitator:', 'المؤطر:')}</strong> {t(event.facilitator.en, event.facilitator.ar)}</p>}
+            {event.participants && <p className="mt-2 text-sm text-tx2"><strong className="text-ink">{t('Participants:', 'المشاركون:')}</strong> {t(event.participants.en, event.participants.ar)}</p>}
+            {event.notes && <p className="mt-4 border-s-2 border-accent ps-3 text-sm leading-relaxed text-tx2">{t(event.notes.en, event.notes.ar)}</p>}
+            {event.href && <a href={event.href} target="_blank" rel="noreferrer" className="tlink mt-6 text-brand">{t('Open source', 'فتح المصدر')} <Arrow /></a>}
+          </div>
+        </div>
+      </article>
+    </div>
   )
 }
 
