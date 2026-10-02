@@ -533,8 +533,8 @@ export function EventCard({ event, delay = 0 }: { event: EventRecord; delay?: nu
   return (
     <Reveal delay={delay} className="h-full">
       <article className="card flex h-full flex-col overflow-hidden">
-        <div className="aspect-[4/3] overflow-hidden bg-tint">
-          <Img src={event.image} alt={event.title ? t(event.title.en, event.title.ar) : t('Youth LED activity photo', 'صورة من نشاط لشباب ليد')} />
+        <div className="grid aspect-[4/3] place-items-center overflow-hidden bg-tint">
+          {event.image ? <Img src={event.image} alt={event.title ? t(event.title.en, event.title.ar) : t('Youth LED activity photo', 'صورة من نشاط لشباب ليد')} /> : <p className="px-6 text-center text-sm text-tx2">{t('Verified activity image to be added', 'ستُضاف صورة النشاط الموثقة')}</p>}
         </div>
         <div className="flex flex-1 flex-col p-5 sm:p-6">
           {event.title ? <h3 className="t-h4 break-words text-ink">{t(event.title.en, event.title.ar)}</h3> : <p className="text-sm font-semibold text-tx2">{t('Event details to be added', 'ستُضاف تفاصيل النشاط')}</p>}
@@ -542,7 +542,11 @@ export function EventCard({ event, delay = 0 }: { event: EventRecord; delay?: nu
           {event.location && <p className="mt-1 text-sm text-tx2">{t(event.location.en, event.location.ar)}</p>}
           {event.summary && <p className="t-body mt-4 text-[15px] text-tx2">{t(event.summary.en, event.summary.ar)}</p>}
           {event.topics && <ul className="mt-4 flex flex-wrap gap-2">{event.topics.map((topic) => <li key={topic.en} className="rounded-full border border-bd px-3 py-1.5 text-xs text-ink">{t(topic.en, topic.ar)}</li>)}</ul>}
+          {event.organiser && <p className="mt-4 text-xs leading-relaxed text-tx2"><strong className="font-semibold text-ink">{t('Role:', 'الدور:')}</strong> {t(event.organiser.en, event.organiser.ar)}</p>}
+          {event.facilitator && <p className="mt-2 text-xs leading-relaxed text-tx2"><strong className="font-semibold text-ink">{t('Facilitator:', 'المؤطر:')}</strong> {t(event.facilitator.en, event.facilitator.ar)}</p>}
+          {event.participants && <p className="mt-2 text-xs leading-relaxed text-tx2"><strong className="font-semibold text-ink">{t('Participants:', 'المشاركون:')}</strong> {t(event.participants.en, event.participants.ar)}</p>}
           {event.partner && <p className="mt-4 text-xs text-tx2">{t('Partner:', 'الشريك:')} {t(event.partner.en, event.partner.ar)}</p>}
+          {event.notes && <p className="mt-3 border-s-2 border-accent ps-3 text-xs leading-relaxed text-tx2">{t(event.notes.en, event.notes.ar)}</p>}
           {detail}
         </div>
       </article>

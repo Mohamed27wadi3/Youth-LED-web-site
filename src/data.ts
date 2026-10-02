@@ -32,6 +32,7 @@ export const LOCAL_IMG = {
   publicSpeaking: new URL('./assets/events/event-public-speaking.jpg', import.meta.url).href,
   policyPaper: new URL('./assets/events/event-policy-paper.jpg', import.meta.url).href,
   governance: new URL('./assets/events/event-governance.jpg', import.meta.url).href,
+  personalBranding: new URL('./assets/events/event-personal-branding.jpg', import.meta.url).href,
 }
 
 export const NAV: { path: string; label: B }[] = [
@@ -296,24 +297,139 @@ export const PROJECTS: Project[] = [
 export type EventRecord = {
   id: string
   title?: B
-  image: string
+  image?: string
   date?: B
   location?: B
   summary?: B
   topics?: B[]
+  organiser?: B
+  facilitator?: B
+  participants?: B
+  notes?: B
   partner?: B
   href?: string
 }
 
 export const EVENTS: EventRecord[] = [
-  { id: 'event-01', image: LOCAL_IMG.learn },
-  { id: 'event-02', image: LOCAL_IMG.speak },
-  { id: 'event-03', image: LOCAL_IMG.build },
-  { id: 'event-04', image: LOCAL_IMG.connect },
-  { id: 'event-05', image: LOCAL_IMG.bacMeetup },
-  { id: 'event-06', image: LOCAL_IMG.publicSpeaking },
-  { id: 'event-07', image: LOCAL_IMG.policyPaper },
-  { id: 'event-08', image: LOCAL_IMG.governance },
+  {
+    id: 'tot-soft-skills-closing-2026',
+    title: { en: 'Closing the Training of Trainers in Soft Skills', ar: 'اختتام تدريب المدربين في المهارات الناعمة' },
+    date: { en: '19 September 2026', ar: '19 سبتمبر 2026' },
+    location: { en: 'Konrad-Adenauer-Stiftung office, Algiers', ar: 'مقر مؤسسة كونراد أديناور، مكتب الجزائر' },
+    summary: { en: 'A closing meeting to exchange training experiences, review the ToT learning journey and strengthen the transfer of soft skills to young people in Algeria.', ar: 'لقاء ختامي لتبادل تجارب التدريب ومراجعة مكتسبات مسار تدريب المدربين وتعزيز نقل المهارات الناعمة إلى شباب آخرين في الجزائر.' },
+    organiser: { en: 'Youth LED Algeria', ar: 'شباب ليد الجزائر' },
+    facilitator: { en: 'Idir Nasser BELKEBIR', ar: 'إدير ناصر بلكبير' },
+    participants: { en: 'ToT participants; no complete attendance list published.', ar: 'المشاركون في مسار تدريب المدربين؛ لم تُنشر قائمة كاملة للحضور.' },
+    partner: { en: 'Konrad-Adenauer-Stiftung Algérie', ar: 'مؤسسة كونراد أديناور الجزائر' },
+    href: 'https://dz.linkedin.com/in/meriem-benbouabdellah-a30650421',
+  },
+  {
+    id: 'bac-fac-meetups-2026',
+    title: { en: 'BAC-FAC Meetups', ar: 'لقاءات باك-فاك' },
+    image: LOCAL_IMG.bacMeetup,
+    date: { en: '16 July 2026, from 09:30', ar: '16 جويلية 2026، ابتداءً من 09:30' },
+    location: { en: 'Arzaki Taboudoucht Cultural Centre, Ben Aknoun, Algiers', ar: 'المركز الثقافي أرزقي تابودوشت، بن عكنون، الجزائر' },
+    summary: { en: 'A guidance meetup connecting new baccalaureate graduates with university and professional experience to support informed choices.', ar: 'لقاء توجيهي يربط الناجحين الجدد في البكالوريا بأصحاب التجارب الجامعية والمهنية لمساعدتهم على بناء اختيارات واعية.' },
+    organiser: { en: 'Youth LED Algeria, co-organiser', ar: 'شباب ليد الجزائر، شريك في التنظيم' },
+    participants: { en: '2026 baccalaureate graduates, parents, students, graduates and young professionals.', ar: 'حاملو بكالوريا 2026، الأولياء، الطلبة، الخريجون والمهنيون الشباب.' },
+    partner: { en: 'DZ Young Leaders, Arzaki Taboudoucht Cultural Centre, LEAP DZ, YIXIN E-Santé and ELEVENT Youth Clubs', ar: 'DZ Young Leaders والمركز الثقافي أرزقي تابودوشت وLEAP DZ وYIXIN E-Santé وELEVENT Youth Clubs' },
+    href: 'https://dz.linkedin.com/company/youthledalgeria',
+  },
+  {
+    id: 'project-management-public-speaking-2026',
+    title: { en: 'Project Management & Public Speaking Essentials', ar: 'أساسيات إدارة المشاريع والتحدث أمام الجمهور' },
+    image: LOCAL_IMG.publicSpeaking,
+    date: { en: '16 June 2026, 09:30', ar: '16 جوان 2026، 09:30' },
+    summary: { en: 'A practical workshop on community needs, SMART planning, monitoring and evaluation, and confident project presentation.', ar: 'ورشة عملية حول تحديد احتياجات المجتمع والتخطيط بمنهجية SMART والمتابعة والتقييم وتقديم المشاريع بثقة.' },
+    facilitator: { en: 'BELHAMRA Hamid', ar: 'حميد بلحمرة' },
+    participants: { en: 'Young people, students, volunteers, initiative builders and people interested in leadership and community work.', ar: 'شباب وطلبة ومتطوعون ورواد مبادرات ومهتمون بالقيادة والعمل المجتمعي.' },
+    href: 'https://www.linkedin.com/posts/youthledalgeria_youthledalgeria-projectmanagement-publicspeaking-activity-7489823763392413696-Dv47',
+  },
+  {
+    id: 'save-earth-game-2026',
+    title: { en: 'Save the Earth, One Game at a Time 2026', ar: 'أنقذ الأرض، لعبة واحدة في كل مرة 2026' },
+    date: { en: '9-10 May 2026', ar: '9-10 ماي 2026' },
+    location: { en: 'Lot N° 214, Pins Maritimes, Cité les Mandarines, Mohammadia', ar: 'القطعة رقم 214، الصنوبر البحري، حي اليوسفي، المحمدية' },
+    summary: { en: 'A two-day design-thinking experience for co-creating environmental awareness games for children through prototyping, testing and teamwork.', ar: 'تجربة على مدى يومين لتصميم ألعاب تعليمية ترفع الوعي البيئي لدى الأطفال باستخدام التفكير التصميمي والنمذجة والاختبار والعمل الجماعي.' },
+    topics: [{ en: 'Design thinking', ar: 'التفكير التصميمي' }, { en: 'Environmental education', ar: 'التربية البيئية' }, { en: 'Teamwork', ar: 'العمل الجماعي' }],
+    participants: { en: 'Youth, educators, association members, students, facilitators and community leaders; 15 places announced, not confirmed attendance.', ar: 'شباب ومربون وأعضاء جمعيات وطلبة وميسّرون وقادة مجتمعيون؛ أُعلن عن 15 مكاناً دون إثبات عدد الحضور.' },
+    partner: { en: 'AXXAM Business Hub', ar: 'AXXAM Business Hub' },
+    href: 'https://www.linkedin.com/posts/youthledalgeria_savetheearthonegameatatime2026-environmentaleducation-activity-7465869079510220800-jejT',
+  },
+  {
+    id: 'personal-branding-linkedin',
+    title: { en: 'Personal Branding & LinkedIn Optimization Workshop', ar: 'بناء الهوية المهنية وتحسين حساب LinkedIn' },
+    image: LOCAL_IMG.personalBranding,
+    summary: { en: 'A practical session on professional identity, LinkedIn profiles and professional communication with direct profile work.', ar: 'جلسة تطبيقية لتحديد الهوية المهنية وتحسين ملفات LinkedIn وتطوير التواصل المهني مع تطبيق مباشر على حسابات المشاركين.' },
+    facilitator: { en: 'Rihal Na', ar: 'ريهال نا' },
+    participants: { en: 'Professionals, students and freelancers.', ar: 'مهنيون وطلبة ومستقلون.' },
+    href: 'https://www.linkedin.com/posts/rihal-na_what-an-incredible-session-it-was-an-activity-7297731017002352641-dEJ6',
+  },
+  {
+    id: 'lcoy-algeria-2023',
+    title: { en: 'LCOY Algeria 2023', ar: 'مؤتمر الشباب المحلي للمناخ 2023' },
+    date: { en: '16-17 October 2023', ar: '16-17 أكتوبر 2023' },
+    summary: { en: 'A youth climate conference on climate action, organic waste recovery, climate finance, and loss and damage.', ar: 'مؤتمر شبابي حول العمل المناخي وتثمين النفايات العضوية وتمويل المناخ والخسائر والأضرار.' },
+    organiser: { en: 'Youth LED Algeria, organiser', ar: 'شباب ليد الجزائر، المنظمة' },
+    topics: [{ en: 'Youth climate action', ar: 'العمل المناخي الشبابي' }, { en: 'Climate finance', ar: 'تمويل المناخ' }],
+    partner: { en: 'AOEE; Selma Bichbich for two side sessions', ar: 'AOEE؛ وسلمى بيشبش في جلستين جانبيتين' },
+    href: 'https://www.linkedin.com/posts/algerian-organization-of-energy-engineers-aoee_aoee-lcoy2023-activity-7119929385557602304-wbW8',
+  },
+  {
+    id: 'green-impact',
+    title: { en: 'Green Impact', ar: 'الأثر الأخضر' },
+    date: { en: 'Launched in 2022; activities documented in 2023', ar: 'أُطلق في 2022؛ وُثقت الأنشطة في 2023' },
+    summary: { en: 'A project connecting plastic pollution awareness with circular economy and green entrepreneurship through training, field action and project support.', ar: 'مشروع يربط التوعية بالتلوث البلاستيكي بالاقتصاد الدائري وريادة الأعمال الخضراء عبر التدريب والعمل الميداني ومواكبة المشاريع.' },
+    topics: [{ en: 'Circular economy', ar: 'الاقتصاد الدائري' }, { en: 'Green entrepreneurship', ar: 'ريادة الأعمال الخضراء' }],
+    partner: { en: 'UNDP/GEF Small Grants Programme, AND and Entrepreneurship House at Mila University Centre', ar: 'PNUD وبرنامج منح GEF وAND ودار المقاولاتية بالمركز الجامعي بميلة' },
+    notes: { en: 'Reported figures are kept separate because groups may overlap.', ar: 'تم إبقاء الأرقام منفصلة لاحتمال تداخل الفئات.' },
+    href: 'https://www.undp.org/fr/algeria/actualites/renforcer-les-capacites-des-jeunes-dans-lentreprenariat-vert',
+  },
+  {
+    id: 'glass-room-community-edition',
+    title: { en: 'The Glass Room Community Edition', ar: 'The Glass Room Community Edition' },
+    date: { en: '6-8 February 2020', ar: '6-8 فيفري 2020' },
+    location: { en: 'Algiers', ar: 'الجزائر العاصمة' },
+    summary: { en: 'Hosting of The Glass Room Community Edition exhibition in Algiers.', ar: 'استضافة نسخة The Glass Room Community Edition في الجزائر العاصمة.' },
+    organiser: { en: 'Youth LED Algeria, host', ar: 'شباب ليد الجزائر، المضيف' },
+    href: 'https://www.theglassroom.org/past-events/',
+  },
+  {
+    id: 'tot-soft-skills-2025',
+    title: { en: 'Training of Trainers on Soft Skills - ToT2025', ar: 'تدريب المدربين على المهارات الناعمة - ToT2025' },
+    image: LOCAL_IMG.learn,
+    date: { en: '2025; in-person days not precisely dated', ar: 'نسخة 2025؛ اليومان الحضوريان غير مؤرخين بدقة' },
+    summary: { en: 'A trainer development path using facilitation, learning by doing and interactive methods to transfer soft skills.', ar: 'مسار لتأهيل المدربين على التيسير والتعلم بالممارسة والطرق التفاعلية ونقل المهارات الناعمة.' },
+    organiser: { en: 'Youth LED Algeria', ar: 'شباب ليد الجزائر' },
+    facilitator: { en: 'Idir Nasser BELKEBIR', ar: 'إدير ناصر بلكبير' },
+    partner: { en: 'Konrad-Adenauer-Stiftung Algérie', ar: 'مؤسسة كونراد أديناور الجزائر' },
+    href: 'https://www.linkedin.com/posts/youthledalgeria_youthledalgeria-tot2025-softskills-activity-7392924771191263232-B8Ne',
+  },
+  {
+    id: 'revade-2022',
+    title: { en: 'Participation in REVADE 2022', ar: 'المشاركة في REVADE 2022' },
+    date: { en: '10-13 October 2022', ar: '10-13 أكتوبر 2022' },
+    location: { en: 'SAFEX, Algiers', ar: 'صافكس، الجزائر' },
+    organiser: { en: 'Youth LED Algeria, participant within Green Impact activities', ar: 'شباب ليد الجزائر، مشاركة ضمن أنشطة الأثر الأخضر' },
+    notes: { en: 'Participation, not organisation of the exhibition.', ar: 'مشاركة وليست تنظيمًا للمعرض.' },
+    href: 'https://www.undp.org/fr/algeria/actualites/renforcer-les-capacites-des-jeunes-dans-lentreprenariat-vert',
+  },
+  {
+    id: 'revade-catalogue-2024',
+    title: { en: 'REVADE 2024 Catalogue Listing', ar: 'الإدراج في كتالوج REVADE 2024' },
+    date: { en: '18-21 November 2024', ar: '18-21 نوفمبر 2024' },
+    location: { en: 'SAFEX, Algiers', ar: 'صافكس، الجزائر' },
+    summary: { en: 'Youth LED Algeria is listed in the associations section of the official catalogue; the listing alone does not establish activity details or attendance.', ar: 'أُدرجت جمعية شباب ليد الجزائر في قسم الجمعيات بالكتالوج الرسمي؛ ولا يثبت الإدراج وحده تفاصيل الأنشطة أو الحضور.' },
+    href: 'https://revade.dz/bilan-catalogues/Catalogue%20REVADE%208e-1.pdf',
+  },
+  {
+    id: 'empoweru-bootcamp',
+    title: { en: 'EmpowerU Bootcamp', ar: 'مخيم EmpowerU التدريبي' },
+    summary: { en: 'Interactive workshops in communication, leadership and civic participation using discussion, role play and project-based learning.', ar: 'سلسلة ورش تفاعلية في التواصل والقيادة والمشاركة المدنية تعتمد النقاش ولعب الأدوار والتعلم بالمشاريع.' },
+    participants: { en: 'Algerian youth aged 18-30, especially underrepresented backgrounds.', ar: 'شباب جزائريون من 18 إلى 30 سنة، خاصة من خلفيات أقل تمثيلاً.' },
+    notes: { en: 'Date and location must be completed before publishing a dated event card.', ar: 'يجب استكمال التاريخ والمكان قبل نشر بطاقة مؤرخة.' },
+    href: 'https://youthproaktiv.org/wp-content/uploads/2024/10/COLLECTION-OF-BEST-PRACTICES_compressed-1.pdf',
+  },
 ]
 
 export const BOARD: B[] = [
